@@ -3,6 +3,8 @@ import joblib
 import mlflow
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from skl2onnx import convert_sklearn
+from skl2onnx.common.data_types import FloatTensorType
 
 def train_model():
     X_train = pd.read_csv("X_train.csv")
@@ -18,6 +20,16 @@ def train_model():
         mlflow.log_metric("accuracy", accuracy)
         joblib.dump(model, "model.pkl")
 
+        feature_count = X_train.shape[1] 
+        initial_type = [('float_input', FloatTensorType([None, feature_count]))]
+        onnx_model = convert_sklearn(model, initial_types=initial_type)
+
+        with open("model.onnx", "wb") as f:
+            f.write(onnx_model.SerializeToString())
+    
+        mlflow.log_artifact("model.onnx")
         print(f"Model Accuracy: {accuracy}")
+
+
 if __name__ == "__main__":
     train_model()

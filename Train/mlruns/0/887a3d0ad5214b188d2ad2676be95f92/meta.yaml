@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/PythonIA/AI-pipeline/Train/mlruns/0/887a3d0ad5214b188d2ad2676be95f92/artifacts
+end_time: 1760906385029
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 887a3d0ad5214b188d2ad2676be95f92
+run_name: funny-cub-296
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760906383015
+status: 3
+tags: []
+user_id: super
