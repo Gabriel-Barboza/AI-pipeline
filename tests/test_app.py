@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, ".") 
+sys.path.insert(0, "src/api")
 from fastapi.testclient import TestClient
 from src.api.app import app  
 
