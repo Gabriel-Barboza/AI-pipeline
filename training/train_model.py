@@ -18,16 +18,16 @@ def train_model():
         predictions = model.predict(X_test)
         accuracy = accuracy_score(y_test, predictions)
         mlflow.log_metric("accuracy", accuracy)
-        joblib.dump(model, "model.pkl")
+        joblib.dump(model, "../models/model.pkl")
 
         feature_count = X_train.shape[1] 
         initial_type = [('float_input', FloatTensorType([None, feature_count]))]
         onnx_model = convert_sklearn(model, initial_types=initial_type)
 
-        with open("model.onnx", "wb") as f:
+        with open("../models/model.onnx", "wb") as f:
             f.write(onnx_model.SerializeToString())
-    
-        mlflow.log_artifact("model.onnx")
+
+        mlflow.log_artifact("../models/model.onnx")
         print(f"Model Accuracy: {accuracy}")
 
 

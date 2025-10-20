@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-
+import os
 def prepare_data():
         df = pd.read_csv("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv")
 
@@ -10,6 +10,8 @@ def prepare_data():
         y = df["species"]
 
         X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+        output_dir = "../data"
+        os.makedirs(output_dir, exist_ok=True)
 
         X_train.to_csv("../data/X_train.csv", index=False)
         X_test.to_csv("../data/X_test.csv", index=False)
