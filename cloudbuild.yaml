@@ -1,43 +1,44 @@
 steps:
-- name: 'python:3.11-slim'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      export PYTHONPATH=.
-      python -m pip install --upgrade pip
-      python -m pip install -r requirements-api.txt pytest requests httpx
-      pytest -q
+  - name: "python:3.11-slim"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        export PYTHONPATH=.
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements-api.txt pytest requests httpx
+        pytest -q
 
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest",
+        ".",
+      ]
 
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest",
+      ]
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'build',
-    '-t',
-    'us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest',
-    '.'
-  ]
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'push',
-    'us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest'
-  ]
-
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: [
-    'run',
-    'deploy',
-    'iris-ml-api',  
-    '--image=us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest',
-    '--region=us-central1',
-    '--platform=managed',
-    '--allow-unauthenticated'
-  ]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "iris-ml-api",
+        "--image=us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest",
+        "--region=us-central1",
+        "--platform=managed",
+        "--allow-unauthenticated",
+      ]
 
 images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest'
+  - "us-central1-docker.pkg.dev/$PROJECT_ID/my-docker-repo/ai-pipeline-super-slim:latest"
 
 options:
   logging: CLOUD_LOGGING_ONLY
