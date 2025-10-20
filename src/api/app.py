@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import onnxruntime as ort
 import numpy as np
 from baseModel import IrisFeatures 
-app = FastAPI(title="AI Pipeline Otimizado")
+app = FastAPI(title="AI Pipeline ")
 
 # Carrega a sessão do ONNX
 session = ort.InferenceSession("models/model.onnx")
@@ -11,7 +11,7 @@ label_name = session.get_outputs()[0].name
 
 @app.get("/")
 def home():
-    return {"message": "Bem-vindo à API Otimizada!"}
+    return {"message": "Bem-vindo à API Íris!"}
 
 @app.post("/predict")
 
