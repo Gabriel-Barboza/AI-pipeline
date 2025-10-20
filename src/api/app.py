@@ -1,14 +1,19 @@
 from fastapi import FastAPI
 import onnxruntime as ort
 import numpy as np
-from .baseModel import IrisFeatures 
+from baseModel import IrisFeatures 
+from pathlib import Path
+
+MODEL_PATH = Path(__file__).resolve().parents[2] / "models" / "model.onnx"
+
+
 app = FastAPI(title="AI Pipeline ", description="""
 Uma API que utiliza um modelo de Machine Learning (ONNX) para 
 classificar a espécie de uma flor de Íris (setosa, versicolor, virginica) 
 com base nas 4 medidas de suas pétalas e sépalas.
     """
 )
-session = ort.InferenceSession("models/model.onnx")
+session = ort.InferenceSession(MODEL_PATH)
 input_name = session.get_inputs()[0].name
 label_name = session.get_outputs()[0].name
 
