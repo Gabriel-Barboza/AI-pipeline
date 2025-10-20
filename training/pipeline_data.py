@@ -9,7 +9,7 @@ def prepare_data():
         x = df.drop(columns=["species"])
         y = df["species"]
 
-        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42 )
         output_dir = "../data"
         os.makedirs(output_dir, exist_ok=True)
 
