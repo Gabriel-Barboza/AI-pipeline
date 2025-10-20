@@ -7,10 +7,10 @@ from skl2onnx import convert_sklearn
 from skl2onnx.common.data_types import FloatTensorType
 
 def train_model():
-    X_train = pd.read_csv("X_train.csv")
-    y_train = pd.read_csv("y_train.csv")
-    X_test = pd.read_csv("X_test.csv")
-    y_test = pd.read_csv("y_test.csv")
+    X_train = pd.read_csv("../data/X_train.csv")
+    y_train = pd.read_csv("../data/y_train.csv")
+    X_test = pd.read_csv("../data/X_test.csv")
+    y_test = pd.read_csv("../data/y_test.csv")
 
     with mlflow.start_run():
         model = RandomForestClassifier(random_state=42)

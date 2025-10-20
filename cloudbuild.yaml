@@ -1,4 +1,15 @@
 steps:
+- name: 'python:3.11-slim'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      python -m pip install --upgrade pip
+      pip install -r requirements-api.txt pytest requests
+      pytest -q
+
+
+
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'build',
