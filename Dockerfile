@@ -4,7 +4,7 @@ WORKDIR /app
 COPY requirements-api.txt .
 RUN pip install --no-cache-dir -r requirements-api.txt \
     && find /usr/local/lib/python3.11/site-packages/ \
-    \( -name "tests" -o -name "test" -o -name "doc" -o -name "docs" -o -name "__pycache__" \) \
+    \( -name "tests" -o -name "test" -o -name "doc" -o -name "docs " -o -name "__pycache__" \) \
     -type d -exec rm -rf {} + \
     && find /usr/local/lib/python3.11/site-packages/ -name "*.pyc" -exec rm -f {} + \
     && find /usr/local/lib/python3.11/site-packages/ -name "*.pyo" -exec rm -f {} +
