@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 import onnxruntime as ort
 import numpy as np
-from src.api.baseModel import IrisFeatures 
+from baseModel import IrisFeatures 
 app = FastAPI(title="AI Pipeline Otimizado")
 
 # Carrega a sessão do ONNX
-session = ort.InferenceSession("Train/model.onnx")
+session = ort.InferenceSession("models/model.onnx")
 input_name = session.get_inputs()[0].name
 label_name = session.get_outputs()[0].name
 
