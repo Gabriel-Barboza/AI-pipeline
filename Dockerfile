@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements-api.txt \
     && find /usr/local/lib/python3.11/site-packages/ -name "*.pyc" -exec rm -f {} + \
     && find /usr/local/lib/python3.11/site-packages/ -name "*.pyo" -exec rm -f {} +
 
-COPY src/api/app.py .
-COPY src/api/baseModel.py .  
+COPY src ./src
+COPY models ./models
 COPY models/model.onnx models/model.onnx
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
